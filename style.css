@@ -1,0 +1,36 @@
+.container{
+    max-width: 1200px;
+    margin: 0 auto;    
+}
+
+ul {
+    list-style: none;    
+}
+li {
+    height: 250px;
+    width: 80%;
+    border: 2px solid darkgray;
+    display: flex;
+    padding: 5px;
+    margin: 10px auto;
+}
+h2 {
+    font-size: 28px;
+    margin-right: 10px;
+}
+
+img{
+    height: 100%;
+    transition: all 0.5s;
+}
+a {
+    position: relative;
+}
+
+img:hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 200%;
+    z-index: 10;
+}
