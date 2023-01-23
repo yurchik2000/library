@@ -13,6 +13,8 @@ let moviesList = [
     'tt7201846', //Original title: Edmond
     'tt0816692', //Original title: Interstellar
     'tt2278388', // The Grand Budapest Hotel
+    'tt6060964', //Man of God
+    'tt0109830', //Original title: Forrest Gump
 ]
 
 moviesList.forEach(id => {
@@ -96,9 +98,13 @@ function render(arrayId) {
     let movieList = document.querySelector('ul');
     movieList.innerText = "";
     arrayId.forEach(id => {
+        
         let data = JSON.parse(window.localStorage.getItem(id));
         console.log(data);
-        const movie = document.createElement('li');
+
+        if (data) {
+
+            const movie = document.createElement('li');
 
         const mainContent = document.createElement('div');
         mainContent.classList.add('main__content')
@@ -141,6 +147,9 @@ function render(arrayId) {
         movie.appendChild(moviePlot);
         
         movieList.appendChild(movie);        
+
+        }
+        
 
     }) 
 }
