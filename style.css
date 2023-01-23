@@ -23,6 +23,7 @@ li {
 }
 h2 {
     font-size: 28px;
+    line-height: 32px;
     margin-right: 10px;
     margin-bottom: 10px;
 }
@@ -41,15 +42,19 @@ img:hover {
 }
 
 .main__content {
-    min-width: 200px;
+    width: 250px;
 }
-
+.genres__wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+}
 .genre {
     font-size: 16px;
     padding: 4px;
     border: 1px solid lightgray;
     border-radius: 10px;
-    width: 80px;
+    width: 70px;
     text-align: center;
     margin: 5px;
 }
@@ -62,5 +67,11 @@ img:hover {
     }   
     .genre {
         margin: 5px auto;
+    }
+    .main__content{
+        margin: 0 auto;
+    }
+    .genres__wrapper {
+        justify-content: center;        
     }
 }

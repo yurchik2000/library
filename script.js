@@ -15,7 +15,16 @@ let moviesList = [
     'tt2278388', // The Grand Budapest Hotel
     'tt6060964', //Man of God
     'tt0109830', //Original title: Forrest Gump
+    'tt0426931', //Original title: August Rush
+    'tt11703710', //Downton Abbey: A New Era
+    'tt13880104', //Original title: L'événement
+    'tt14369780', //Original title: Lady Chatterley's Lover
+    'tt2191765', //Original title: Un moment d'égarement
 ]
+
+
+let movieList = document.querySelector('ul');
+movieList.innerText = "";
 
 moviesList.forEach(id => {
 
@@ -33,6 +42,7 @@ moviesList.forEach(id => {
         link: ""
     }
     if (window.localStorage.getItem(id)) {
+        render(id);
         // let active = JSON.parse(window.localStorage.getItem(id))    
         // console.log(active);        
     
@@ -74,8 +84,9 @@ moviesList.forEach(id => {
             movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
             movie.rating = data[id].ratings.rating;
             movie.genres = data[id].genres;            
-            console.log(3, movie);                            
+            // console.log(3, movie);                            
             window.localStorage.setItem(id, JSON.stringify(movie));
+            render(id);
         })        
         .catch(err => console.error(err));                
 
@@ -94,13 +105,12 @@ moviesList.forEach(id => {
 })
 
 
-function render(arrayId) {
-    let movieList = document.querySelector('ul');
-    movieList.innerText = "";
-    arrayId.forEach(id => {
+function render(id) {
+    
+    
         
         let data = JSON.parse(window.localStorage.getItem(id));
-        console.log(data);
+        // console.log(data);
 
         if (data) {
 
@@ -122,12 +132,17 @@ function render(arrayId) {
         mainContent.appendChild(movieYear);
         mainContent.appendChild(movieRating);
 
+        const genresList = document.createElement('div');
+        genresList.classList.add('genres__wrapper')
+
         data.genres.forEach(genre => {
             const genreName = document.createElement('div');
             genreName.classList.add('genre');
             genreName.textContent = genre;
-            mainContent.appendChild(genreName);
+            genresList.appendChild(genreName);
         })        
+
+        mainContent.appendChild(genresList);
         
         movie.appendChild(mainContent);
 
@@ -153,10 +168,10 @@ function render(arrayId) {
         }
         
 
-    }) 
+    
 }
 
-window.addEventListener("storage", render(moviesList));
+// window.addEventListener("storage", render(moviesList));
 
 
 
