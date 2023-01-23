@@ -2,6 +2,7 @@
     max-width: 1200px;
     margin: 0 auto;    
     padding: 5px;
+    font-family: Cambria;
 }
 
 p {
@@ -15,8 +16,9 @@ ul {
     margin: 0 auto;    
 }
 li {
-    min-height: 250px;    
+    min-height: 300px;    
     border: 2px solid darkgray;
+    border-radius: 10px;
     display: flex;
     padding: 10px;    
     margin: 10px;
@@ -29,7 +31,7 @@ h2 {
 }
 
 img{
-    height: 300px;    
+    height: 350px;    
     transition: all 0.5s;
 }
 a {    
@@ -37,7 +39,7 @@ a {
 }
 
 img:hover {    
-    height: 400px;
+    height: 450px;
     z-index: 10;
 }
 
@@ -55,7 +57,7 @@ img:hover {
     padding: 4px;
     border: 1px solid lightgray;
     border-radius: 10px;
-    width: 80px;
+    width: 90px;
     text-align: center;
     margin: 5px;
 }

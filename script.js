@@ -20,6 +20,18 @@ let moviesList = [
     'tt13880104', //Original title: L'événement
     'tt14369780', //Original title: Lady Chatterley's Lover
     'tt2191765', //Original title: Un moment d'égarement
+    'tt0441909', //Original title: Volver
+    'tt0424205', //Original title: Joyeux Noël
+    'tt8097030', //Original title: Turning Red
+    'tt13182756', //The Most Reluctant Convert
+    'tt12680684', //Original title: È stata la mano di Dio
+    'tt12888462', //My Octopus Teacher
+    'tt2398149', //Original title: J'accuse
+    'tt6910282', //Original title: Bergman Island
+    'tt15738080', //Original title: Koza Nostra
+    'tt8075192', //Original title: Manbiki kazoku
+    'tt6390668', //A Vida Invisível
+
 ]
 
 
