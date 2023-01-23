@@ -33,35 +33,35 @@ moviesList.forEach(id => {
         link: ""
     }
     if (window.localStorage.getItem(id)) {
-        let active = JSON.parse(window.localStorage.getItem(id))    
-        console.log(active);        
+        // let active = JSON.parse(window.localStorage.getItem(id))    
+        // console.log(active);        
     
-        if (!active.genres.length) {
-            fetch(`https://imdb8.p.rapidapi.com/title/get-genres?tconst=${id}`, options)
-            .then(response => response.json())
-            .then(data => {
-                // console.log(data);
-                movie.genres = data;            
-                // console.log(1, movie);            
-                window.localStorage.setItem(id, JSON.stringify(movie));
-            })
-            .catch(err => console.error(err));
-        }
+        // if (!active.genres.length) {
+        //     fetch(`https://imdb8.p.rapidapi.com/title/get-genres?tconst=${id}`, options)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         // console.log(data);
+        //         movie.genres = data;            
+        //         // console.log(1, movie);            
+        //         window.localStorage.setItem(id, JSON.stringify(movie));
+        //     })
+        //     .catch(err => console.error(err));
+        // }
     
-        if (!active.plot) {        
-            fetch(`https://imdb8.p.rapidapi.com/title/get-plots?tconst=${id}`, options)        
-                .then(response => response.json())
-                .then(data => {
-                    //  console.log(data)                
-                    movie.plot = data.plots[0].text;
-                    movie.title = data.base.title;
-                    movie.year = data.base.year;
-                    movie.imageUrl = data.base.image.url;
-                    // console.log(2, movie);                
-                    window.localStorage.setItem(id, JSON.stringify(movie));
-                })
-                .catch(err => console.error(err));        
-        }        
+        // if (!active.plot) {        
+        //     fetch(`https://imdb8.p.rapidapi.com/title/get-plots?tconst=${id}`, options)        
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             //  console.log(data)                
+        //             movie.plot = data.plots[0].text;
+        //             movie.title = data.base.title;
+        //             movie.year = data.base.year;
+        //             movie.imageUrl = data.base.image.url;
+        //             // console.log(2, movie);                
+        //             window.localStorage.setItem(id, JSON.stringify(movie));
+        //         })
+        //         .catch(err => console.error(err));        
+        // }        
 
     }   else {
         fetch(`https://imdb8.p.rapidapi.com/title/get-meta-data?ids=${id}&region=US`, options)
@@ -74,20 +74,20 @@ moviesList.forEach(id => {
             movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
             movie.rating = data[id].ratings.rating;
             movie.genres = data[id].genres;            
-            console.log(3, movie);                
+            console.log(3, movie);                            
             window.localStorage.setItem(id, JSON.stringify(movie));
         })        
         .catch(err => console.error(err));                
 
-        fetch(`https://imdb8.p.rapidapi.com/title/get-plots?tconst=${id}`, options)        
-        .then(response => response.json())
-        .then(data => {
-            // console.log(data)                
-            movie.plot = data.plots[0].text;                                               
-            // console.log(2, movie);                
-            window.localStorage.setItem(id, JSON.stringify(movie));
-        })
-        .catch(err => console.error(err)); 
+        // fetch(`https://imdb8.p.rapidapi.com/title/get-plots?tconst=${id}`, options)        
+        // .then(response => response.json())
+        // .then(data => {
+        //     // console.log(data)                
+        //     movie.plot = data.plots[0].text;                                      
+        //     // console.log(2, movie);                
+        //     window.localStorage.setItem(id, JSON.stringify(movie));
+        // })
+        // .catch(err => console.error(err)); 
     
     }
 
@@ -141,10 +141,12 @@ function render(arrayId) {
         movieLink.appendChild(movieImage);
         movie.appendChild(movieLink);
 
-        const moviePlot = document.createElement('p');
-        moviePlot.textContent = data.plot;
-
-        movie.appendChild(moviePlot);
+        if (data.plot) {
+            const moviePlot = document.createElement('p');
+            moviePlot.textContent = data.plot;
+            movie.appendChild(moviePlot);
+        }
+        
         
         movieList.appendChild(movie);        
 
