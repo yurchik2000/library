@@ -77,9 +77,11 @@ img:hover {
         justify-content: center;        
     }
     img{
-        height: 80vh;            
+        width: 90%;
+        height: auto;            
     }
     img:hover{
-        height: 80vh;            
+        width: 90%;
+        height: auto;            
     }
 }
