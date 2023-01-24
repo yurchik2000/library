@@ -33,6 +33,8 @@ let moviesList = [
     'tt15738080', //Original title: Koza Nostra
     'tt8075192', //Original title: Manbiki kazoku
     'tt6390668', //A Vida Invisível
+    'tt14028890', //Original title: Stop-Zemlia
+    'tt8332658', //Original title: Shchedryk
 
 ]
 
