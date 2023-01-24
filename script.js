@@ -6,6 +6,8 @@ const options = {
 	}
 };
 
+const apiKey = "eeecfa5e";
+
 let moviesList = [
     'tt8291806', // Original title: Dolor y gloria
     'tt5827916', //Original title: A Hidden Life
@@ -34,159 +36,179 @@ let moviesList = [
 
 ]
 
+let moviesDataList = [];
+// moviesList.forEach(id => {
+//     moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
+// })
+
+const arrowUp = document.querySelector('.arrow__up');
+const arrowDown = document.querySelector('.arrow__down');
+
+arrowUp.addEventListener('click', () => {
+    moviesList.forEach(id => {
+        moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
+    })
+    moviesDataList.sort(sortByNameUp);    
+    movieList.innerText = "";
+    moviesDataList.forEach(item => {
+        render(item);
+    })
+})
+
+arrowDown.addEventListener('click', () => {
+    moviesList.forEach(id => {
+        moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
+    })
+    moviesDataList.sort(sortByNameDown);    
+    movieList.innerText = "";
+    moviesDataList.forEach(item => {
+        render(item);
+    })
+})
+
+function sortByNameUp(a, b) {
+    const nameFirst = a.title.toLowerCase();
+    const nameSecond = b.title.toLowerCase();    
+    if (nameFirst > nameSecond) return -1; 
+      else return 1;
+}
+
+function sortByNameDown(a, b) {
+    const nameFirst = a.title.toLowerCase();
+    const nameSecond = b.title.toLowerCase();    
+    if (nameFirst > nameSecond) return 1; 
+      else return -1;
+}
+
+
 
 let movieList = document.querySelector('ul');
+
 movieList.innerText = "";
 
 moviesList.forEach(id => {
 
-    // console.log(id); 
-
     let movie = {
+        id: "",
         title: "Dolor y gloria",
         year: "2019",
         imageUrl: "",
         rating: "",
         genres: [],
         director: "",
-        stars: [],
+        actors: [],
         plot: "",
         link: ""
     }
     if (window.localStorage.getItem(id)) {
-        render(id);
-        // let active = JSON.parse(window.localStorage.getItem(id))    
-        // console.log(active);        
-    
-        // if (!active.genres.length) {
-        //     fetch(`https://imdb8.p.rapidapi.com/title/get-genres?tconst=${id}`, options)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         // console.log(data);
-        //         movie.genres = data;            
-        //         // console.log(1, movie);            
-        //         window.localStorage.setItem(id, JSON.stringify(movie));
-        //     })
-        //     .catch(err => console.error(err));
-        // }
-    
-        // if (!active.plot) {        
-        //     fetch(`https://imdb8.p.rapidapi.com/title/get-plots?tconst=${id}`, options)        
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             //  console.log(data)                
-        //             movie.plot = data.plots[0].text;
-        //             movie.title = data.base.title;
-        //             movie.year = data.base.year;
-        //             movie.imageUrl = data.base.image.url;
-        //             // console.log(2, movie);                
-        //             window.localStorage.setItem(id, JSON.stringify(movie));
-        //         })
-        //         .catch(err => console.error(err));        
-        // }        
-
+        let item = JSON.parse(window.localStorage.getItem(id));
+        if (!item.actors) {
+            fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
+                .then(response => response.json())
+                .then(data => {                        
+                    movie.title = data.Title;
+                    movie.year = data.Year;
+                    movie.imageUrl = data.Poster;
+                    movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
+                    movie.rating = data.imdbRating;            
+                    movie.genres = data.Genre.split(',');
+                    movie.director = data.Director;
+                    movie.actors = data.Actors;         
+                    movie.plot = data.Plot;            
+                    window.localStorage.setItem(id, JSON.stringify(movie));
+                    render(movie);
+            })        
+            .catch(err => console.error(err));                        
+        } else {
+            render(item);
+        }        
+        
     }   else {
-        fetch(`https://imdb8.p.rapidapi.com/title/get-meta-data?ids=${id}&region=US`, options)
+        fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
         .then(response => response.json())
-        .then(data => {
-            // console.log(data[id]);
-            movie.title = data[id].title.title;
-            movie.year = data[id].title.year;
-            movie.imageUrl = data[id].title.image.url;
+        .then(data => {            
+            // console.log(data);
+            movie.title = data.Title;
+            movie.year = data.Year;
+            movie.imageUrl = data.Poster;
             movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
-            movie.rating = data[id].ratings.rating;
-            movie.genres = data[id].genres;            
-            // console.log(3, movie);                            
+            movie.rating = data.imdbRating;            
+            movie.genres = data.Genre.split(',');
+            movie.director = data.Director;
+            movie.actors = data.Actors.split(',');         
+            movie.plot = data.Plot;            
             window.localStorage.setItem(id, JSON.stringify(movie));
-            render(id);
+            render(movie);
         })        
-        .catch(err => console.error(err));                
-
-        // fetch(`https://imdb8.p.rapidapi.com/title/get-plots?tconst=${id}`, options)        
-        // .then(response => response.json())
-        // .then(data => {
-        //     // console.log(data)                
-        //     movie.plot = data.plots[0].text;                                      
-        //     // console.log(2, movie);                
-        //     window.localStorage.setItem(id, JSON.stringify(movie));
-        // })
-        // .catch(err => console.error(err)); 
-    
+        .catch(err => console.error(err));                        
     }
 
 })
 
 
-function render(id) {
-    
-    
-        
-        let data = JSON.parse(window.localStorage.getItem(id));
+
+
+function render(item) {            
+        let data = item;
         // console.log(data);
-
         if (data) {
-
             const movie = document.createElement('li');
-
-        const mainContent = document.createElement('div');
-        mainContent.classList.add('main__content')
-
-        const movieTitle = document.createElement('h2');
-        movieTitle.textContent = data.title;        
-
-        const movieYear = document.createElement('p');
-        movieYear.textContent = data.year;
-
-        const movieRating = document.createElement('p');
-        movieRating.textContent = 'IMDb rating: ' + data.rating;
-
-        mainContent.appendChild(movieTitle);
-        mainContent.appendChild(movieYear);
-        mainContent.appendChild(movieRating);
-
-        const genresList = document.createElement('div');
-        genresList.classList.add('genres__wrapper')
-
-        data.genres.forEach(genre => {
-            const genreName = document.createElement('div');
-            genreName.classList.add('genre');
-            genreName.textContent = genre;
-            genresList.appendChild(genreName);
-        })        
-
-        mainContent.appendChild(genresList);
         
-        movie.appendChild(mainContent);
+            const mainContent = document.createElement('div');
+            mainContent.classList.add('main__content')
 
-        const movieLink = document.createElement('a');
-        movieLink.setAttribute('href', data.link);
-        movieLink.setAttribute('target', "_blank");
+            const movieTitle = document.createElement('h2');
+            movieTitle.textContent = data.title;        
 
-        const movieImage = document.createElement('img');
-        movieImage.setAttribute('src', data.imageUrl);
+            const movieYear = document.createElement('p');
+            movieYear.textContent = data.year;
 
-        movieLink.appendChild(movieImage);
-        movie.appendChild(movieLink);
+            const movieRating = document.createElement('p');
+            movieRating.textContent = 'IMDb rating: ' + data.rating;
 
-        if (data.plot) {
-            const moviePlot = document.createElement('p');
-            moviePlot.textContent = data.plot;
-            movie.appendChild(moviePlot);
+            mainContent.appendChild(movieTitle);
+            mainContent.appendChild(movieYear);
+            mainContent.appendChild(movieRating);
+
+            const genresList = document.createElement('div');
+            genresList.classList.add('genres__wrapper')
+
+            data.genres.forEach(genre => {
+                const genreName = document.createElement('div');
+                genreName.classList.add('genre');
+                genreName.textContent = genre;
+                genresList.appendChild(genreName);
+            })        
+
+            mainContent.appendChild(genresList);
+        
+            movie.appendChild(mainContent);
+
+            const movieLink = document.createElement('a');
+            movieLink.setAttribute('href', data.link);
+            movieLink.setAttribute('target', "_blank");
+
+            const movieImage = document.createElement('img');
+            movieImage.setAttribute('src', data.imageUrl);
+            movieImage.classList.add('img__poster')
+
+            movieLink.appendChild(movieImage);
+            movie.appendChild(movieLink);
+
+            if (data.plot) {
+                const moviePlot = document.createElement('p');
+                moviePlot.classList.add('plot');
+                moviePlot.textContent = data.plot;
+                movie.appendChild(moviePlot);
+            }
+                
+            movieList.appendChild(movie);        
         }
         
-        
-        movieList.appendChild(movie);        
-
-        }
-        
-
     
 }
 
 // window.addEventListener("storage", render(moviesList));
-
-
-
 
 // let id = 'tt8291806' // Original title: Dolor y gloria
 

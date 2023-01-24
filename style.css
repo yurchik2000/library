@@ -5,15 +5,37 @@
     font-family: Cambria;
 }
 
+.menu {
+    height: 30px;
+    display: flex;
+    justify-content: end;    
+    border: 2px solid darkgray;
+    border-radius: 10px;    
+    padding: 10px;    
+    margin: 10px;
+    background: lightcyan;
+    position: sticky;    
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+.arrow__up,
+.arrow__down {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
 p {
     font-size: 24px;
     line-height: 28px;
     margin-bottom: 5px;
 }
-
 ul {
     list-style: none;    
-    margin: 0 auto;    
+    margin: 0 auto;
+    width: 100%;
 }
 li {
     min-height: 300px;    
@@ -23,34 +45,31 @@ li {
     padding: 10px;    
     margin: 10px;
 }
+.main__content {
+    width: 25%;
+    margin-bottom: 15px;    
+}
 h2 {
     font-size: 34px;
     line-height: 38px;
     margin-right: 10px;
     margin-bottom: 10px;
 }
-
-img{
-    height: 350px;    
+.img__poster{        
     transition: all 0.5s;
+    width: 100%;
 }
-a {    
-    margin-right: 10px;
-}
-
-img:hover {    
-    height: 450px;
+.img__poster:hover {    
+    width: 130%;
     z-index: 10;
 }
-
-.main__content {
-    width: 250px;
-    margin-bottom: 10px;
+a {    
+    margin-right: 10px;    
+    width: 30%;
 }
 .genres__wrapper{
     display: flex;
-    flex-wrap: wrap;
-    /* justify-content: center; */
+    flex-wrap: wrap;    
 }
 .genre {
     font-size: 20px;
@@ -60,6 +79,11 @@ img:hover {
     width: 90px;
     text-align: center;
     margin: 5px;
+}
+.plot {
+    font-size: 24px;   
+    line-height: 30px;
+    width: 45%;
 }
 
 @media (max-width: 750px) {
@@ -72,18 +96,29 @@ img:hover {
         margin: 5px auto;
     }
     .main__content{
-        margin: 0 auto;
+        margin: 0 auto 15px;
         width: 80%
     }
     .genres__wrapper {
         justify-content: center;        
     }
-    img{
+    a {
+        width: 100%;
+
+    }
+    .img__poster{
         width: 90%;
         height: auto;            
     }
-    img:hover{
+    .img__poster:hover{
         width: 90%;
         height: auto;            
+    }
+    .plot {
+        width: 100%;
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+        margin-top: 5px;
     }
 }
