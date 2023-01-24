@@ -45,6 +45,7 @@ const arrowUp = document.querySelector('.arrow__up');
 const arrowDown = document.querySelector('.arrow__down');
 
 arrowUp.addEventListener('click', () => {
+    moviesDataList = [];
     moviesList.forEach(id => {
         moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
     })
@@ -56,6 +57,7 @@ arrowUp.addEventListener('click', () => {
 })
 
 arrowDown.addEventListener('click', () => {
+    moviesDataList = [];
     moviesList.forEach(id => {
         moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
     })
