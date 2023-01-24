@@ -105,7 +105,7 @@ moviesList.forEach(id => {
     if (window.localStorage.getItem(id)) {
         let item = JSON.parse(window.localStorage.getItem(id));
         if (!item.actors) {
-            fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
+            fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
                 .then(response => response.json())
                 .then(data => {                        
                     movie.title = data.Title;
@@ -126,7 +126,7 @@ moviesList.forEach(id => {
         }        
         
     }   else {
-        fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
+        fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
         .then(response => response.json())
         .then(data => {            
             // console.log(data);
