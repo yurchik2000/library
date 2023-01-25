@@ -73,28 +73,40 @@ a {
 }
 .genre {
     font-size: 20px;
-    padding: 4px;
+    padding: 5px 10px;
     border: 1px solid lightgray;
-    border-radius: 10px;
-    width: 90px;
+    border-radius: 10px;    
     text-align: center;
     margin: 5px;
 }
-.plot {
-    font-size: 24px;   
-    line-height: 30px;
+.sub__content {
     width: 45%;
 }
+.plot {
+    font-size: 24px;   
+    line-height: 30px;    
+}
+.directors__list,
+.actors__list {
+    font-weight: bold;
+    line-height: 28px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+}
+.directors__list span,
+.actors__list span{
+    /* font-weight: normal; */
+    color: darkblue;
+}
+
 
 @media (max-width: 750px) {
     li {
         flex-direction: column;
         justify-content: center;
         text-align: center;
-    }   
-    .genre {
-        margin: 5px auto;
-    }
+    }       
     .main__content{
         margin: 0 auto 15px;
         width: 80%
@@ -114,11 +126,14 @@ a {
         width: 90%;
         height: auto;            
     }
-    .plot {
-        width: 100%;
+    .plot {        
         font-size: 18px;
         line-height: 24px;
         text-align: center;
+        margin-top: 5px;
+    }
+    .sub__content {
+        width: 100%;
         margin-top: 5px;
     }
 }

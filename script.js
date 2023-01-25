@@ -1,10 +1,10 @@
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '39b027358amsh126a680bcd929a4p1dcb19jsnfb00d53a85d8',
-		'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
-	}
-};
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'X-RapidAPI-Key': '39b027358amsh126a680bcd929a4p1dcb19jsnfb00d53a85d8',
+// 		'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+// 	}
+// };
 
 const apiKey = "eeecfa5e";
 
@@ -106,7 +106,7 @@ moviesList.forEach(id => {
     }
     if (window.localStorage.getItem(id)) {
         let item = JSON.parse(window.localStorage.getItem(id));
-        if (!item.actors) {
+        if (!item.id) {
             fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
                 .then(response => response.json())
                 .then(data => {                        
@@ -115,10 +115,11 @@ moviesList.forEach(id => {
                     movie.imageUrl = data.Poster;
                     movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
                     movie.rating = data.imdbRating;            
-                    movie.genres = data.Genre.split(',');
-                    movie.director = data.Director;
-                    movie.actors = data.Actors;         
-                    movie.plot = data.Plot;            
+                    movie.genres = data.Genre.split(',');                    
+                    movie.director = data.Director.split(',');
+                    movie.actors = data.Actors.split(',');         
+                    movie.plot = data.Plot;
+                    movie.id = id;
                     window.localStorage.setItem(id, JSON.stringify(movie));
                     render(movie);
             })        
@@ -138,9 +139,10 @@ moviesList.forEach(id => {
             movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
             movie.rating = data.imdbRating;            
             movie.genres = data.Genre.split(',');
-            movie.director = data.Director;
+            movie.director = data.Director.split(',');
             movie.actors = data.Actors.split(',');         
             movie.plot = data.Plot;            
+            movie.id = id;
             window.localStorage.setItem(id, JSON.stringify(movie));
             render(movie);
         })        
@@ -199,12 +201,45 @@ function render(item) {
             movieLink.appendChild(movieImage);
             movie.appendChild(movieLink);
 
-            if (data.plot) {
-                const moviePlot = document.createElement('p');
-                moviePlot.classList.add('plot');
-                moviePlot.textContent = data.plot;
-                movie.appendChild(moviePlot);
-            }
+            const subContent = document.createElement('div');
+            subContent.classList.add('sub__content');
+
+            const directorsList = document.createElement('p');            
+            directorsList.classList.add('directors__list');
+            directorsList.textContent = "Director: ";
+            
+            const directorsSpan = document.createElement('span');
+            let directorsSpanContent = "";
+            data.director.forEach(director => {
+                directorsSpanContent += director;                
+            });
+            directorsSpan.textContent = directorsSpanContent;                        
+            directorsList.appendChild(directorsSpan);
+
+            subContent.appendChild(directorsList);
+
+            const actorsList = document.createElement('p');            
+            actorsList.classList.add('actors__list');
+            actorsList.textContent = "Actors: ";
+            
+            const actorsSpan = document.createElement('span');
+            let actorsSpanContent = "";
+            data.actors.forEach(actor => {
+                actorsSpanContent += actor + ' * ';
+            });
+            actorsSpan.textContent = actorsSpanContent;                        
+            actorsList.appendChild(actorsSpan);
+
+            subContent.appendChild(actorsList);
+
+            
+            const moviePlot = document.createElement('p');
+            moviePlot.classList.add('plot');
+            moviePlot.textContent = data.plot;
+
+            subContent.appendChild(moviePlot);
+            movie.appendChild(subContent);
+            
                 
             movieList.appendChild(movie);        
         }
