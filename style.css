@@ -8,22 +8,38 @@
 .menu {
     height: 30px;
     display: flex;
-    justify-content: end;    
+    justify-content: space-between;    
     border: 2px solid darkgray;
     border-radius: 10px;    
     padding: 10px;    
     margin: 10px;
-    background: lightcyan;
+    background: #9f9fff;
     position: sticky;    
     top: 0;
     left: 0;
     z-index: 3;
 }
+.genres__inner{
+    display: flex;
+}
+.genre__menu{
+    font-size: 14px;
+    line-height: 14px;
+    padding: 5px 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;    
+    text-align: center;
+    margin: 0 5px;
+    /* cursor: pointer;     */
+    font-weight: 400;
+    color: black;    
+    background: lightcyan;
+}
 .arrow__up,
 .arrow__down {
     width: 40px;
     height: 40px;
-    margin: 0 10px;
+    margin: 0 5px;
     cursor: pointer;
 }
 
@@ -78,6 +94,18 @@ a {
     border-radius: 10px;    
     text-align: center;
     margin: 5px;
+    cursor: pointer;    
+    font-weight: 400;
+    color: black;
+    transition: all 0.5s;
+    background: #fff;
+}
+.genre:hover {
+    color: darkblue;
+    font-weight: 800;    
+}
+.genre__active {
+    background: lightcyan;
 }
 .sub__content {
     width: 45%;
@@ -97,7 +125,7 @@ a {
 .directors__list span,
 .actors__list span{
     /* font-weight: normal; */
-    color: darkblue;
+    color: darkblue;    
 }
 
 

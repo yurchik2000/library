@@ -39,9 +39,53 @@ let moviesList = [
 ]
 
 let moviesDataList = [];
-// moviesList.forEach(id => {
-//     moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
-// })
+
+let genresSelectedList = [];
+
+function activeMenuRender() {
+    let menuActive = document.querySelector('.genres__inner');
+    menuActive.textContent = "";    
+    genresSelectedList.forEach(genre => {
+        const genreName = document.createElement('div');
+        genreName.classList.add('genre__menu');
+        genreName.textContent = genre;
+        menuActive.appendChild(genreName);
+    })    
+}
+
+
+function addActiveClassGenre(genre) {
+    const activeGenres = document.querySelectorAll('.genre');    
+    activeGenres.forEach(item => {        
+        if (item.textContent == genre) item.classList.add('genre__active');        
+    })   
+    activeMenuRender();
+};
+
+function removeActiveClassGenre(genre) {
+    const activeGenres = document.querySelectorAll('.genre');    
+    activeGenres.forEach(item => {        
+        if (item.textContent == genre) item.classList.remove('genre__active');        
+    });
+    activeMenuRender();
+};
+
+document.querySelector('ul').addEventListener('click', () => {
+    if (event.target.classList.contains('genre')) {
+        const item = event.target.textContent;
+        const itemIndex = genresSelectedList.indexOf(item);
+
+        event.target.classList.toggle('genre__active');
+        
+        if (itemIndex === -1) {
+            genresSelectedList.push(item);            
+            addActiveClassGenre(item);
+        } else {
+            genresSelectedList.splice(itemIndex, 1)
+            removeActiveClassGenre(item);
+        }        
+    };
+})
 
 const arrowUp = document.querySelector('.arrow__up');
 const arrowDown = document.querySelector('.arrow__down');
@@ -104,7 +148,7 @@ moviesList.forEach(id => {
         plot: "",
         link: ""
     }
-    if (window.localStorage.getItem(id)) {
+    if (window.localStorage.getItem(id)) {        
         let item = JSON.parse(window.localStorage.getItem(id));
         if (!item.id) {
             fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
@@ -115,9 +159,9 @@ moviesList.forEach(id => {
                     movie.imageUrl = data.Poster;
                     movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
                     movie.rating = data.imdbRating;            
-                    movie.genres = data.Genre.split(',');                    
-                    movie.director = data.Director.split(',');
-                    movie.actors = data.Actors.split(',');         
+                    movie.genres = data.Genre.split(',').forEach(trim());                    
+                    movie.director = data.Director.split(',').forEach(trim());
+                    movie.actors = data.Actors.split(',').trim();         
                     movie.plot = data.Plot;
                     movie.id = id;
                     window.localStorage.setItem(id, JSON.stringify(movie));
@@ -131,16 +175,17 @@ moviesList.forEach(id => {
     }   else {
         fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
         .then(response => response.json())
-        .then(data => {            
-            // console.log(data);
+        .then(data => {                        
             movie.title = data.Title;
             movie.year = data.Year;
             movie.imageUrl = data.Poster;
             movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
             movie.rating = data.imdbRating;            
-            movie.genres = data.Genre.split(',');
+            movie.genres = data.Genre.split(', ');            
             movie.director = data.Director.split(',');
-            movie.actors = data.Actors.split(',');         
+            movie.director.forEach(item => item.trim());
+            movie.actors = data.Actors.split(',');
+            movie.actors.forEach(item => item.trim());            
             movie.plot = data.Plot;            
             movie.id = id;
             window.localStorage.setItem(id, JSON.stringify(movie));
@@ -150,8 +195,6 @@ moviesList.forEach(id => {
     }
 
 })
-
-
 
 
 function render(item) {            
