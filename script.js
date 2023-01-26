@@ -1,12 +1,10 @@
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		'X-RapidAPI-Key': '39b027358amsh126a680bcd929a4p1dcb19jsnfb00d53a85d8',
-// 		'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
-// 	}
-// };
-
 const apiKey = "eeecfa5e";
+
+let moviesDataList = [];
+
+let movieList = document.querySelector('ul');
+
+movieList.innerText = "";
 
 let moviesList = [
     'tt8291806', // Original title: Dolor y gloria
@@ -38,7 +36,56 @@ let moviesList = [
 
 ]
 
-let moviesDataList = [];
+async function getMovieInfo(id) {
+    const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`);
+    const data = await responce.json();
+    let movie = {
+        id: "",
+        title: "",
+        year: "",
+        imageUrl: "",
+        rating: "",
+        genres: [],
+        director: "",
+        actors: [],
+        plot: "",
+        link: "",
+        checked: false
+    };
+    movie.title = data.Title;
+    movie.year = data.Year;
+    movie.imageUrl = data.Poster;
+    movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
+    movie.rating = data.imdbRating;            
+    movie.genres = data.Genre.split(', ');            
+    movie.director = data.Director.split(',');
+    movie.director.forEach(item => item.trim());
+    movie.actors = data.Actors.split(',');
+    movie.actors.forEach(item => item.trim());            
+    movie.plot = data.Plot;
+    movie.id = id;    
+    moviesDataList.push(movie); 
+    render(movie);    
+}
+
+async function getAllMovies() {
+    if (!window.localStorage.getItem('alldata')) {
+        for( let i = 0; i < moviesList.length; i++) {
+            await getMovieInfo(moviesList[i]);            
+        }        
+        console.log(moviesDataList)
+        window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));    
+    }    
+    else {
+        moviesDataList = JSON.parse(window.localStorage.getItem('alldata'));        
+        console.log(moviesDataList);
+        moviesDataList.forEach(movie => {
+            render(movie);
+        })
+    }
+}
+
+getAllMovies();
 
 let genresSelectedList = [];
 
@@ -128,78 +175,8 @@ function sortByNameDown(a, b) {
       else return -1;
 }
 
-
-
-let movieList = document.querySelector('ul');
-
-movieList.innerText = "";
-
-moviesList.forEach(id => {
-
-    let movie = {
-        id: "",
-        title: "Dolor y gloria",
-        year: "2019",
-        imageUrl: "",
-        rating: "",
-        genres: [],
-        director: "",
-        actors: [],
-        plot: "",
-        link: ""
-    }
-    if (window.localStorage.getItem(id)) {        
-        let item = JSON.parse(window.localStorage.getItem(id));
-        if (!item.id) {
-            fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
-                .then(response => response.json())
-                .then(data => {                        
-                    movie.title = data.Title;
-                    movie.year = data.Year;
-                    movie.imageUrl = data.Poster;
-                    movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
-                    movie.rating = data.imdbRating;            
-                    movie.genres = data.Genre.split(',').forEach(trim());                    
-                    movie.director = data.Director.split(',').forEach(trim());
-                    movie.actors = data.Actors.split(',').trim();         
-                    movie.plot = data.Plot;
-                    movie.id = id;
-                    window.localStorage.setItem(id, JSON.stringify(movie));
-                    render(movie);
-            })        
-            .catch(err => console.error(err));                        
-        } else {
-            render(item);
-        }        
-        
-    }   else {
-        fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)        
-        .then(response => response.json())
-        .then(data => {                        
-            movie.title = data.Title;
-            movie.year = data.Year;
-            movie.imageUrl = data.Poster;
-            movie.link = `https://www.imdb.com/title/${id}/?ref_=nv_sr_srsg_0`;
-            movie.rating = data.imdbRating;            
-            movie.genres = data.Genre.split(', ');            
-            movie.director = data.Director.split(',');
-            movie.director.forEach(item => item.trim());
-            movie.actors = data.Actors.split(',');
-            movie.actors.forEach(item => item.trim());            
-            movie.plot = data.Plot;            
-            movie.id = id;
-            window.localStorage.setItem(id, JSON.stringify(movie));
-            render(movie);
-        })        
-        .catch(err => console.error(err));                        
-    }
-
-})
-
-
 function render(item) {            
-        let data = item;
-        // console.log(data);
+        let data = item;        
         if (data) {
             const movie = document.createElement('li');
         
@@ -274,7 +251,6 @@ function render(item) {
             actorsList.appendChild(actorsSpan);
 
             subContent.appendChild(actorsList);
-
             
             const moviePlot = document.createElement('p');
             moviePlot.classList.add('plot');
@@ -285,38 +261,5 @@ function render(item) {
             
                 
             movieList.appendChild(movie);        
-        }
-        
-    
+        }            
 }
-
-// window.addEventListener("storage", render(moviesList));
-
-// let id = 'tt8291806' // Original title: Dolor y gloria
-
-// window.localStorage.setItem(id, JSON.stringify(movie));
-
-// fetch('https://imdb8.p.rapidapi.com/auto-complete?q=game', options)
-// 	.then(response => response.json())
-// 	.then(data => console.log(data))
-// 	.catch(err => console.error(err));
-
-
-//get genres
-// fetch(`https://imdb8.p.rapidapi.com/title/get-genres?tconst=${id}`, options)
-// .then(response => response.json())
-// .then(response => console.log(response))
-// .catch(err => console.error(err));
-
-
-//get plots
-// fetch('https://imdb8.p.rapidapi.com/title/get-plots?tconst=tt2056771', options)
-// 	.then(response => response.json())
-// 	.then(response => console.log(response))
-// 	.catch(err => console.error(err));
-
-//get metadata
-// fetch('https://imdb8.p.rapidapi.com/title/get-meta-data?ids=tt4154756&region=US', options)
-// 	.then(response => response.json())
-// 	.then(response => console.log(response))
-// 	.catch(err => console.error(err));
