@@ -22,10 +22,10 @@
 .genres__inner{
     display: flex;
 }
-.genre__menu{
-    font-size: 14px;
-    line-height: 14px;
-    padding: 5px 5px;
+.genre__menu{    
+    font-size: 20px;
+    line-height: 24px;
+    padding: 0px 5px;
     border: 1px solid lightgray;
     border-radius: 5px;    
     text-align: center;

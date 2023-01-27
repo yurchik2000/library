@@ -4,7 +4,7 @@ let moviesDataList = [];
 
 let movieList = document.querySelector('ul');
 
-movieList.innerText = "";
+// movieList.innerText = "";
 
 let moviesList = [
     'tt8291806', // Original title: Dolor y gloria
@@ -33,7 +33,8 @@ let moviesList = [
     'tt6390668', //A Vida Invisível
     'tt14028890', //Original title: Stop-Zemlia
     'tt8332658', //Original title: Shchedryk
-
+    // 'tt3165612', //Original title: Sleeping with Other People
+    // 'tt2278871', //La vie d'Adèle
 ]
 
 async function getMovieInfo(id) {
@@ -73,12 +74,12 @@ async function getAllMovies() {
         for( let i = 0; i < moviesList.length; i++) {
             await getMovieInfo(moviesList[i]);            
         }        
-        console.log(moviesDataList)
+        // console.log(moviesDataList)
         window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));    
     }    
     else {
         moviesDataList = JSON.parse(window.localStorage.getItem('alldata'));        
-        console.log(moviesDataList);
+        // console.log(moviesDataList);
         moviesDataList.forEach(movie => {
             render(movie);
         })
@@ -86,6 +87,55 @@ async function getAllMovies() {
 }
 
 getAllMovies();
+
+const arrowUp = document.querySelector('.arrow__up');
+const arrowDown = document.querySelector('.arrow__down');
+
+function renderAllMovies(movies, genre) {
+    movieList.innerText = "";
+    if (genre) {
+        movies
+        .filter(movie => movie.genres.indexOf(genre) >= 0)
+        .forEach(movie => {
+            render(movie);
+        })        
+        addActiveClassGenre(genre);        
+    } else {
+        movies.forEach(movie => {
+            render(movie);
+        })
+    }    
+}
+
+arrowUp.addEventListener('click', () => {        
+    moviesDataList.sort(sortByNameUp);
+    let genre;
+    if (genresSelectedList.length) genre = genresSelectedList[0]
+     else genre = "";
+    renderAllMovies(moviesDataList, genre); 
+})
+
+arrowDown.addEventListener('click', () => {    
+    moviesDataList.sort(sortByNameDown);
+    let genre;
+    if (genresSelectedList.length) genre = genresSelectedList[0]
+     else genre = "";
+    renderAllMovies(moviesDataList, genre);    
+})
+
+function sortByNameUp(a, b) {
+    const nameFirst = a.title.toLowerCase();
+    const nameSecond = b.title.toLowerCase();    
+    if (nameFirst > nameSecond) return -1; 
+      else return 1;
+}
+
+function sortByNameDown(a, b) {
+    const nameFirst = a.title.toLowerCase();
+    const nameSecond = b.title.toLowerCase();    
+    if (nameFirst > nameSecond) return 1; 
+      else return -1;
+}
 
 let genresSelectedList = [];
 
@@ -95,11 +145,10 @@ function activeMenuRender() {
     genresSelectedList.forEach(genre => {
         const genreName = document.createElement('div');
         genreName.classList.add('genre__menu');
-        genreName.textContent = genre;
+        genreName.textContent = "*" + genre;
         menuActive.appendChild(genreName);
     })    
 }
-
 
 function addActiveClassGenre(genre) {
     const activeGenres = document.querySelectorAll('.genre');    
@@ -120,60 +169,27 @@ function removeActiveClassGenre(genre) {
 document.querySelector('ul').addEventListener('click', () => {
     if (event.target.classList.contains('genre')) {
         const item = event.target.textContent;
-        const itemIndex = genresSelectedList.indexOf(item);
+        const itemIndex = genresSelectedList.indexOf(item);        
 
-        event.target.classList.toggle('genre__active');
-        
-        if (itemIndex === -1) {
-            genresSelectedList.push(item);            
+        // event.target.classList.toggle('genre__active');
+                        
+        if (itemIndex === -1) {            
+            if (genresSelectedList.length) removeActiveClassGenre(genresSelectedList[0]);            
+            genresSelectedList[0] = item;    
             addActiveClassGenre(item);
         } else {
-            genresSelectedList.splice(itemIndex, 1)
+            genresSelectedList.splice(0, 1)            
             removeActiveClassGenre(item);
         }        
+        if (genresSelectedList.length) {            
+            renderAllMovies(moviesDataList.filter(movie => movie.genres.indexOf(item) >= 0));
+            addActiveClassGenre(item);
+        } else {
+            renderAllMovies(moviesDataList);            
+        }
     };
 })
 
-const arrowUp = document.querySelector('.arrow__up');
-const arrowDown = document.querySelector('.arrow__down');
-
-arrowUp.addEventListener('click', () => {
-    moviesDataList = [];
-    moviesList.forEach(id => {
-        moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
-    })
-    moviesDataList.sort(sortByNameUp);    
-    movieList.innerText = "";
-    moviesDataList.forEach(item => {
-        render(item);
-    })
-})
-
-arrowDown.addEventListener('click', () => {
-    moviesDataList = [];
-    moviesList.forEach(id => {
-        moviesDataList.push(JSON.parse(window.localStorage.getItem(id)));
-    })
-    moviesDataList.sort(sortByNameDown);    
-    movieList.innerText = "";
-    moviesDataList.forEach(item => {
-        render(item);
-    })
-})
-
-function sortByNameUp(a, b) {
-    const nameFirst = a.title.toLowerCase();
-    const nameSecond = b.title.toLowerCase();    
-    if (nameFirst > nameSecond) return -1; 
-      else return 1;
-}
-
-function sortByNameDown(a, b) {
-    const nameFirst = a.title.toLowerCase();
-    const nameSecond = b.title.toLowerCase();    
-    if (nameFirst > nameSecond) return 1; 
-      else return -1;
-}
 
 function render(item) {            
         let data = item;        
