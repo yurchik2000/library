@@ -31,9 +31,9 @@ let moviesList = [
     'tt15738080', //Original title: Koza Nostra
     'tt8075192', //Original title: Manbiki kazoku
     'tt6390668', //A Vida Invisível
-    'tt14028890', //Original title: Stop-Zemlia
-    'tt8332658', //Original title: Shchedryk
-    'tt3165612', //Original title: Sleeping with Other People
+    // 'tt14028890', //Original title: Stop-Zemlia
+    // 'tt8332658', //Original title: Shchedryk
+    // 'tt3165612', //Original title: Sleeping with Other People
     // 'tt2278871', //La vie d'Adèle
 ]
 
@@ -183,7 +183,7 @@ document.querySelector('ul').addEventListener('click', () => {
             genresSelectedList[0] = item;    
             addActiveClassGenre(item);
         } else {
-            genresSelectedList.splice(0, 1)            
+            genresSelectedList.splice(0, 1)
             removeActiveClassGenre(item);
         }                
         if (genresSelectedList.length) {            
@@ -193,6 +193,19 @@ document.querySelector('ul').addEventListener('click', () => {
             renderAllMovies(moviesDataList);            
         }
     };
+})
+
+document.querySelector('ul').addEventListener('click', () => {
+    if (event.target.classList.contains('close__btn')) {
+        let currentMovieTitle = event.target.parentElement.firstElementChild.firstElementChild.textContent;
+        console.log(currentMovieTitle);
+        console.log(moviesDataList.find(element => element.title === currentMovieTitle));        
+        console.log(moviesDataList.findIndex(element => element.title === currentMovieTitle));
+        let currentMovieIndex = moviesDataList.findIndex(element => element.title === currentMovieTitle);
+        moviesDataList.splice(currentMovieIndex, 1);        
+        event.target.parentElement.remove();
+        window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
+    }
 })
 
 
@@ -280,7 +293,11 @@ function render(item) {
             subContent.appendChild(moviePlot);
             movie.appendChild(subContent);
             
-                
+            const closeButton = document.createElement('div');
+            closeButton.classList.add('close__btn');
+            closeButton.textContent = 'X';
+            movie.appendChild(closeButton);
+
             movieList.appendChild(movie);        
         }            
 }

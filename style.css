@@ -60,6 +60,7 @@ li {
     display: flex;
     padding: 10px;    
     margin: 10px;
+    position: relative;
 }
 .main__content {
     width: 25%;
@@ -126,6 +127,21 @@ a {
 .actors__list span{
     /* font-weight: normal; */
     color: darkblue;    
+}
+.close__btn{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;    
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 28px;
+    padding: 5px 10px;
+    transition: all 0.5s;
+    background: #fff;
+}
+.close__btn:hover{
+    background: lightcyan;
 }
 
 
