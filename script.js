@@ -33,7 +33,7 @@ let moviesList = [
     'tt6390668', //A Vida Invisível
     'tt14028890', //Original title: Stop-Zemlia
     'tt8332658', //Original title: Shchedryk
-    // 'tt3165612', //Original title: Sleeping with Other People
+    'tt3165612', //Original title: Sleeping with Other People
     // 'tt2278871', //La vie d'Adèle
 ]
 
@@ -73,16 +73,23 @@ async function getAllMovies() {
     if (!window.localStorage.getItem('alldata')) {
         for( let i = 0; i < moviesList.length; i++) {
             await getMovieInfo(moviesList[i]);            
-        }        
-        // console.log(moviesDataList)
-        window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));    
+        }                
+        window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
     }    
     else {
-        moviesDataList = JSON.parse(window.localStorage.getItem('alldata'));        
+        moviesDataList = JSON.parse(window.localStorage.getItem('alldata'));                
+        // console.log(moviesDataList);        
+        for( let i = 0; i < moviesList.length; i++) {
+            if (!moviesDataList.find(element => element.id === moviesList[i])) {
+                await getMovieInfo(moviesList[i]);
+                // console.log(moviesList[i])
+            }            
+        }
         // console.log(moviesDataList);
         moviesDataList.forEach(movie => {
             render(movie);
-        })
+        });
+        window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
     }
 }
 
@@ -169,9 +176,7 @@ function removeActiveClassGenre(genre) {
 document.querySelector('ul').addEventListener('click', () => {
     if (event.target.classList.contains('genre')) {
         const item = event.target.textContent;
-        const itemIndex = genresSelectedList.indexOf(item);        
-
-        // event.target.classList.toggle('genre__active');
+        const itemIndex = genresSelectedList.indexOf(item);                
                         
         if (itemIndex === -1) {            
             if (genresSelectedList.length) removeActiveClassGenre(genresSelectedList[0]);            
@@ -180,7 +185,7 @@ document.querySelector('ul').addEventListener('click', () => {
         } else {
             genresSelectedList.splice(0, 1)            
             removeActiveClassGenre(item);
-        }        
+        }                
         if (genresSelectedList.length) {            
             renderAllMovies(moviesDataList.filter(movie => movie.genres.indexOf(item) >= 0));
             addActiveClassGenre(item);
