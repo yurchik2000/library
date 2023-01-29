@@ -11,7 +11,7 @@ let moviesList = [
     'tt5827916', //Original title: A Hidden Life
     'tt2056771', //Original title: A Bigger Splash
     'tt7201846', //Original title: Edmond
-    'tt0816692', //Original title: Interstellar
+    // 'tt0816692', //Original title: Interstellar
     'tt2278388', // The Grand Budapest Hotel
     'tt6060964', //Man of God
     'tt0109830', //Original title: Forrest Gump
@@ -69,6 +69,16 @@ async function getMovieInfo(id) {
     render(movie);    
 }
 
+let searchMoviesList = [];
+
+async function searchMovieByTitle(title) {
+    const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${title}`);
+    const data = await responce.json();
+    searchMoviesList = data;
+    console.log(searchMoviesList);
+    return searchMoviesList;
+}    
+
 async function getAllMovies() {
     if (!window.localStorage.getItem('alldata')) {
         for( let i = 0; i < moviesList.length; i++) {
@@ -77,15 +87,12 @@ async function getAllMovies() {
         window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
     }    
     else {
-        moviesDataList = JSON.parse(window.localStorage.getItem('alldata'));                
-        // console.log(moviesDataList);        
+        moviesDataList = JSON.parse(window.localStorage.getItem('alldata'));                        
         for( let i = 0; i < moviesList.length; i++) {
             if (!moviesDataList.find(element => element.id === moviesList[i])) {
-                await getMovieInfo(moviesList[i]);
-                // console.log(moviesList[i])
+                await getMovieInfo(moviesList[i]);                
             }            
-        }
-        // console.log(moviesDataList);
+        }        
         moviesDataList.forEach(movie => {
             render(movie);
         });
@@ -206,6 +213,21 @@ document.querySelector('ul').addEventListener('click', () => {
         event.target.parentElement.remove();
         window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
     }
+})
+
+document.querySelector('.search__btn').addEventListener('click', () => {
+    const searchValue = document.querySelector('.search__input').value;
+    if (searchValue.length > 3) {
+        console.log(searchValue);        
+        // document.querySelector('.search__list-inner').style.display = "block";    
+        searchMovieByTitle(searchValue);        
+    }        
+})
+
+let inputField = document.querySelector('.search__input');
+inputField.addEventListener('keypress', (event) => {
+    if (event.keyCode === 13 && inputField.value.length > 3) searchMovieByTitle(inputField.value);  
+    // console.log(event);
 })
 
 

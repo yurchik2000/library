@@ -29,11 +29,51 @@
     border: 1px solid lightgray;
     border-radius: 5px;    
     text-align: center;
-    margin: 0 5px;
-    /* cursor: pointer;     */
+    margin: 0 5px;    
     font-weight: 400;
     color: black;    
     background: lightcyan;
+}
+.search__inner{
+    display: flex;    
+}
+.search__input{
+    font-size: 20px;
+    line-height: 24px;
+    padding: 5px;
+    max-width: 250px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border: 1px solid transparent;
+}
+.search__btn{
+    font-size: 20px;
+    line-height: 20px;    
+    padding: 5px;
+    border: 1px solid darkblue;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+    background: darkblue;
+    color: #fff;
+    font-weight: normal;
+    transition: 0.5s all;
+}
+.search__btn:hover{
+    font-weight: bold;
+}
+.search__list-inner{
+    width: calc(100vw - 50px);
+    height: calc(100vh - 50px);
+    position: fixed;
+    top: 25px;        
+    left: 25px;
+    background: lightcyan;
+    z-index: 4;
+    display: none;
+}
+.search__movie-list{
+
 }
 .arrow__up,
 .arrow__down {
