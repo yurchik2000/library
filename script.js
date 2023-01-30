@@ -4,38 +4,45 @@ let moviesDataList = [];
 
 let movieList = document.querySelector('ul');
 
-// movieList.innerText = "";
-
 let moviesList = [
     'tt8291806', // Original title: Dolor y gloria
     'tt5827916', //Original title: A Hidden Life
     'tt2056771', //Original title: A Bigger Splash
     'tt7201846', //Original title: Edmond
-    // 'tt0816692', //Original title: Interstellar
+    'tt0816692', //Original title: Interstellar
     'tt2278388', // The Grand Budapest Hotel
     'tt6060964', //Man of God
-    'tt0109830', //Original title: Forrest Gump
-    'tt0426931', //Original title: August Rush
-    'tt11703710', //Downton Abbey: A New Era
-    'tt13880104', //Original title: L'événement
-    'tt14369780', //Original title: Lady Chatterley's Lover
-    'tt2191765', //Original title: Un moment d'égarement
-    'tt0441909', //Original title: Volver
-    'tt0424205', //Original title: Joyeux Noël
-    'tt8097030', //Original title: Turning Red
-    'tt13182756', //The Most Reluctant Convert
-    'tt12680684', //Original title: È stata la mano di Dio
-    'tt12888462', //My Octopus Teacher
-    'tt2398149', //Original title: J'accuse
-    'tt6910282', //Original title: Bergman Island
-    'tt15738080', //Original title: Koza Nostra
-    'tt8075192', //Original title: Manbiki kazoku
-    'tt6390668', //A Vida Invisível
+    // 'tt0109830', //Original title: Forrest Gump
+    // 'tt0426931', //Original title: August Rush
+    // 'tt11703710', //Downton Abbey: A New Era
+    // 'tt13880104', //Original title: L'événement
+    // 'tt14369780', //Original title: Lady Chatterley's Lover
+    // 'tt2191765', //Original title: Un moment d'égarement
+    // 'tt0441909', //Original title: Volver
+    // 'tt0424205', //Original title: Joyeux Noël
+    // 'tt8097030', //Original title: Turning Red
+    // 'tt13182756', //The Most Reluctant Convert
+    // 'tt12680684', //Original title: È stata la mano di Dio
+    // 'tt12888462', //My Octopus Teacher
+    // 'tt2398149', //Original title: J'accuse
+    // 'tt6910282', //Original title: Bergman Island
+    // 'tt15738080', //Original title: Koza Nostra
+    // 'tt8075192', //Original title: Manbiki kazoku
+    // 'tt6390668', //A Vida Invisível
     // 'tt14028890', //Original title: Stop-Zemlia
     // 'tt8332658', //Original title: Shchedryk
     // 'tt3165612', //Original title: Sleeping with Other People
     // 'tt2278871', //La vie d'Adèle
 ]
+
+clearLocalStorage();
+
+function clearLocalStorage() {
+    moviesList.forEach(id => {        
+        if (window.localStorage.getItem(`${id}`)) window.localStorage.removeItem(`${id}`);
+    })
+}
+
 
 async function getMovieInfo(id) {
     const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`);
@@ -71,22 +78,33 @@ async function getMovieInfo(id) {
 
 let searchMoviesList = [];
 
+let searchInner = document.querySelector('.search__movie-list');
+
 async function searchMovieByTitle(title) {
     const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${title}`);
     const data = await responce.json();
-    searchMoviesList = data;
-    console.log(searchMoviesList);
+    document.querySelector('.search__list-inner').style.display = "block";    
+    document.querySelector('body').style.overflow = "hidden";    
+    searchMoviesList = data.Search;
+    console.log(data);
+    if (searchMoviesList) {                
+        searchInner.textContent = "";
+        searchMoviesList.forEach(item => {
+            renderShort(item);
+            // console.log(item);
+        })        
+    }
     return searchMoviesList;
 }    
 
 async function getAllMovies() {
-    if (!window.localStorage.getItem('alldata')) {
+    if (!window.localStorage.getItem('alldata')) {        
         for( let i = 0; i < moviesList.length; i++) {
             await getMovieInfo(moviesList[i]);            
         }                
         window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
     }    
-    else {
+    else {        
         moviesDataList = JSON.parse(window.localStorage.getItem('alldata'));                        
         for( let i = 0; i < moviesList.length; i++) {
             if (!moviesDataList.find(element => element.id === moviesList[i])) {
@@ -218,17 +236,34 @@ document.querySelector('ul').addEventListener('click', () => {
 document.querySelector('.search__btn').addEventListener('click', () => {
     const searchValue = document.querySelector('.search__input').value;
     if (searchValue.length > 3) {
-        console.log(searchValue);        
-        // document.querySelector('.search__list-inner').style.display = "block";    
+        console.log(searchValue);                
         searchMovieByTitle(searchValue);        
     }        
 })
 
 let inputField = document.querySelector('.search__input');
 inputField.addEventListener('keypress', (event) => {
-    if (event.keyCode === 13 && inputField.value.length > 3) searchMovieByTitle(inputField.value);  
-    // console.log(event);
+    if (event.keyCode === 13 && inputField.value.length > 3) searchMovieByTitle(inputField.value);      
 })
+
+function renderShort(item) {
+    const movie = document.createElement('div');
+    movie.classList.add('short__movie');
+
+    const shortMovieTitle = document.createElement('h5');
+    shortMovieTitle.classList.add('short__movie-title');
+    console.log(item.Title)
+    shortMovieTitle.textContent = item.Title;
+
+    const movieImage = document.createElement('img');
+            movieImage.setAttribute('src', item.Poster);
+            movieImage.classList.add('short__movie-img')
+
+    movie.appendChild(movieImage);
+    movie.appendChild(shortMovieTitle);
+    
+    searchInner.appendChild(movie);    
+}
 
 
 function render(item) {            
