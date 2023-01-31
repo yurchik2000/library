@@ -97,6 +97,13 @@ async function searchMovieByTitle(title) {
     return searchMoviesList;
 }    
 
+document.querySelector('.search__list-close').addEventListener('click', () => {
+    document.querySelector('.search__list-inner').style.display = "none";      
+    document.querySelector('body').style.overflow = "visible";    
+    searchInner.textContent = "";
+})
+
+
 async function getAllMovies() {
     if (!window.localStorage.getItem('alldata')) {        
         for( let i = 0; i < moviesList.length; i++) {
