@@ -257,13 +257,17 @@ function renderShort(item) {
     const movie = document.createElement('div');
     movie.classList.add('short__movie');
 
-    const shortMovieTitle = document.createElement('h5');
+    const shortMovieTitle = document.createElement('h4');
     shortMovieTitle.classList.add('short__movie-title');
     console.log(item.Title)
     shortMovieTitle.textContent = item.Title;
 
     const movieImage = document.createElement('img');
-            movieImage.setAttribute('src', item.Poster);
+            if (item.Poster != "N/A") {
+                movieImage.setAttribute('src', item.Poster);
+            } else {
+                movieImage.setAttribute('src', "img/unknown.png");
+            }            
             movieImage.classList.add('short__movie-img')
 
     movie.appendChild(movieImage);
