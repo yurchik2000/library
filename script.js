@@ -90,10 +90,11 @@ async function searchMovieByTitle(title) {
     if (searchMoviesList) {                
         searchInner.textContent = "";
         searchMoviesList.forEach(item => {
-            renderShort(item);
-            // console.log(item);
-        })        
-    }
+            renderShort(item);            
+            // console.log(item);            
+        })                
+    }    
+    document.querySelector('.search__list-inner').focus();     
     return searchMoviesList;
 }    
 
@@ -124,6 +125,19 @@ async function getAllMovies() {
         window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
     }
 }
+
+async function addMovieToLocalStorage(movieId) {
+    await getMovieInfo(movieId);    
+    window.localStorage.setItem('alldata', JSON.stringify(moviesDataList));
+}
+
+document.querySelector('.search__movie-list').addEventListener('click', (event) => {
+    if (event.target.classList.contains('add__movie-btn')) {
+        let newMovieId = event.target.nextSibling.textContent;        
+        addMovieToLocalStorage(newMovieId)
+    }
+    // console.log(event.target.textContent)
+})
 
 getAllMovies();
 
@@ -244,7 +258,7 @@ document.querySelector('.search__btn').addEventListener('click', () => {
     const searchValue = document.querySelector('.search__input').value;
     if (searchValue.length > 3) {
         console.log(searchValue);                
-        searchMovieByTitle(searchValue);        
+        searchMovieByTitle(searchValue);                
     }        
 })
 
@@ -272,6 +286,18 @@ function renderShort(item) {
 
     movie.appendChild(movieImage);
     movie.appendChild(shortMovieTitle);
+
+    const addMovie = document.createElement('div');
+    addMovie.classList.add('add__movie-btn');
+    addMovie.textContent = "+";
+
+    movie.appendChild(addMovie);
+
+    const movieId = document.createElement('div');
+    movieId.classList.add('short__movie-id');
+    movieId.textContent = item.imdbID;
+
+    movie.appendChild(movieId);
     
     searchInner.appendChild(movie);    
 }

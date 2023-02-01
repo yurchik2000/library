@@ -193,6 +193,29 @@ a {
     border: 1px solid lightpink;
     margin: 10px;
     text-align: center;
+    position: relative;
+}
+.add__movie-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    font-size: 20px;
+    z-index: 10;
+    background: lightyellow;
+    cursor: pointer;
+    transition: all .5s;
+}
+.add__movie-btn:hover{
+    background: lightblue;
+}
+.short__movie-id{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    font-size: 4px;
+    z-index: 10;    
 }
 .short__movie-title {
     margin-bottom: 5px;
