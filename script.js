@@ -33,6 +33,14 @@ let moviesList = [
     // 'tt8332658', //Original title: Shchedryk
     // 'tt3165612', //Original title: Sleeping with Other People
     // 'tt2278871', //La vie d'Adèle
+    'tt0808357', //Порочний зв'язок
+    'tt0160916', //Original title: The Story of Us
+    'tt11813216', //Original title: The Banshees of Inisherin
+    'tt2278871', //Original title: La vie d'Adèle
+    'tt3165612', //Original title: Sleeping with Other People
+    'tt6160448', //Original title: White Noise
+    'tt0063518', //Original title: Romeo and Juliet
+    'tt19770238', //Original title: Aftersun
 ]
 
 clearLocalStorage();
