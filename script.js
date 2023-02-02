@@ -12,11 +12,11 @@ let moviesList = [
     'tt0816692', //Original title: Interstellar
     'tt2278388', // The Grand Budapest Hotel
     'tt6060964', //Man of God
-    // 'tt0109830', //Original title: Forrest Gump
-    // 'tt0426931', //Original title: August Rush
-    // 'tt11703710', //Downton Abbey: A New Era
-    // 'tt13880104', //Original title: L'événement
-    // 'tt14369780', //Original title: Lady Chatterley's Lover
+    'tt0109830', //Original title: Forrest Gump
+    'tt0426931', //Original title: August Rush
+    'tt11703710', //Downton Abbey: A New Era
+    'tt13880104', //Original title: L'événement
+    'tt14369780', //Original title: Lady Chatterley's Lover
     // 'tt2191765', //Original title: Un moment d'égarement
     // 'tt0441909', //Original title: Volver
     // 'tt0424205', //Original title: Joyeux Noël
@@ -126,7 +126,8 @@ async function getAllMovies() {
             if (!moviesDataList.find(element => element.id === moviesList[i])) {
                 await getMovieInfo(moviesList[i]);                
             }            
-        }        
+        }
+        movieList.innerText = "";
         moviesDataList.forEach(movie => {
             render(movie);
         });
