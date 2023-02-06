@@ -8,31 +8,24 @@ let moviesList = [
     'tt8291806', // Original title: Dolor y gloria
     'tt5827916', //Original title: A Hidden Life
     'tt2056771', //Original title: A Bigger Splash
-    'tt7201846', //Original title: Edmond
-    'tt0816692', //Original title: Interstellar
+    'tt7201846', //Original title: Edmond    
     'tt2278388', // The Grand Budapest Hotel
     'tt6060964', //Man of God
     'tt0109830', //Original title: Forrest Gump
     'tt0426931', //Original title: August Rush
     'tt11703710', //Downton Abbey: A New Era
-    'tt13880104', //Original title: L'événement
-    'tt14369780', //Original title: Lady Chatterley's Lover
-    // 'tt2191765', //Original title: Un moment d'égarement
-    // 'tt0441909', //Original title: Volver
-    // 'tt0424205', //Original title: Joyeux Noël
-    // 'tt8097030', //Original title: Turning Red
-    // 'tt13182756', //The Most Reluctant Convert
-    // 'tt12680684', //Original title: È stata la mano di Dio
-    // 'tt12888462', //My Octopus Teacher
-    // 'tt2398149', //Original title: J'accuse
-    // 'tt6910282', //Original title: Bergman Island
-    // 'tt15738080', //Original title: Koza Nostra
-    // 'tt8075192', //Original title: Manbiki kazoku
-    // 'tt6390668', //A Vida Invisível
-    // 'tt14028890', //Original title: Stop-Zemlia
-    // 'tt8332658', //Original title: Shchedryk
-    // 'tt3165612', //Original title: Sleeping with Other People
-    // 'tt2278871', //La vie d'Adèle
+    'tt13880104', //Original title: L'événement    
+    'tt2191765', //Original title: Un moment d'égarement
+    'tt0441909', //Original title: Volver
+    'tt0424205', //Original title: Joyeux Noël
+    'tt8097030', //Original title: Turning Red
+    'tt13182756', //The Most Reluctant Convert
+    'tt12680684', //Original title: È stata la mano di Dio    
+    'tt15738080', //Original title: Koza Nostra
+    'tt8075192', //Original title: Manbiki kazoku
+    'tt6390668', //A Vida Invisível    
+    'tt3165612', //Original title: Sleeping with Other People
+    'tt2278871', //La vie d'Adèle
     'tt0808357', //Порочний зв'язок
     'tt0160916', //Original title: The Story of Us
     'tt11813216', //Original title: The Banshees of Inisherin
@@ -41,6 +34,17 @@ let moviesList = [
     'tt6160448', //Original title: White Noise
     'tt0063518', //Original title: Romeo and Juliet
     'tt19770238', //Original title: Aftersun
+    'tt1488589', //Original title: Guillermo del Toro's Pinocchio
+    'tt0401445', //Original title: A Good Year
+    'tt3704428', //Original title: Elvis
+    'tt2398149', //Original title: J'accuse
+    'tt14028890', //Original title: Stop-Zemlia
+    'tt8332658', //Original title: Shchedryk
+    'tt10627352', // Delete history
+    // 'tt14369780', //Original title: Lady Chatterley's Lover
+    'tt6910282', //Original title: Bergman Island
+    'tt0816692', //Original title: Interstellar
+    'tt12888462', //My Octopus Teacher        
 ]
 
 clearLocalStorage();
