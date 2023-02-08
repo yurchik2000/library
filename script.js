@@ -41,10 +41,19 @@ let moviesList = [
     'tt14028890', //Original title: Stop-Zemlia
     'tt8332658', //Original title: Shchedryk
     'tt10627352', // Delete history
+    'tt2353868', //Original title: True Spirit
+    'tt9100054', //Original title: The Lost Daughter
+    'tt10451852', //Original title: Nine Days
+    'tt5776858', //Original title: Phantom Thread
+    'tt7983894', //Original title: Ammonite
+    'tt6987770', //Original title: Destination Wedding
+    'tt1226837', //Original title: Beautiful Boy
+    'tt4682786', //Original title: Collateral Beauty
+
     // 'tt14369780', //Original title: Lady Chatterley's Lover
     'tt6910282', //Original title: Bergman Island
     'tt0816692', //Original title: Interstellar
-    'tt12888462', //My Octopus Teacher        
+    'tt12888462', //My Octopus Teacher            
 ]
 
 clearLocalStorage();
