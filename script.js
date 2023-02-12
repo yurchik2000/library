@@ -5,55 +5,59 @@ let moviesDataList = [];
 let movieList = document.querySelector('ul');
 
 let moviesList = [
-    'tt8291806', // Original title: Dolor y gloria
-    'tt5827916', //Original title: A Hidden Life
-    'tt2056771', //Original title: A Bigger Splash
-    'tt7201846', //Original title: Edmond    
-    'tt2278388', // The Grand Budapest Hotel
+    'tt9770150', //Original title: Nomadland
+    'tt8291806', // Original title: Dolor y gloria                
     'tt6060964', //Man of God
-    'tt0109830', //Original title: Forrest Gump
-    'tt0426931', //Original title: August Rush
-    'tt11703710', //Downton Abbey: A New Era
-    'tt13880104', //Original title: L'événement    
-    'tt2191765', //Original title: Un moment d'égarement
-    'tt0441909', //Original title: Volver
-    'tt0424205', //Original title: Joyeux Noël
-    'tt8097030', //Original title: Turning Red
+    'tt0109830', //Original title: Forrest Gump    
     'tt13182756', //The Most Reluctant Convert
     'tt12680684', //Original title: È stata la mano di Dio    
     'tt15738080', //Original title: Koza Nostra
-    'tt8075192', //Original title: Manbiki kazoku
-    'tt6390668', //A Vida Invisível    
-    'tt3165612', //Original title: Sleeping with Other People
-    'tt2278871', //La vie d'Adèle
-    'tt0808357', //Порочний зв'язок
-    'tt0160916', //Original title: The Story of Us
-    'tt11813216', //Original title: The Banshees of Inisherin
-    'tt2278871', //Original title: La vie d'Adèle
-    'tt3165612', //Original title: Sleeping with Other People
+    'tt8075192', //Original title: Manbiki kazoku    
+    'tt11813216', //Original title: The Banshees of Inisherin    
     'tt6160448', //Original title: White Noise
     'tt0063518', //Original title: Romeo and Juliet
     'tt19770238', //Original title: Aftersun
-    'tt1488589', //Original title: Guillermo del Toro's Pinocchio
-    'tt0401445', //Original title: A Good Year
-    'tt3704428', //Original title: Elvis
-    'tt2398149', //Original title: J'accuse
-    'tt14028890', //Original title: Stop-Zemlia
+    'tt1488589', //Original title: Guillermo del Toro's Pinocchio        
     'tt8332658', //Original title: Shchedryk
-    'tt10627352', // Delete history
-    'tt2353868', //Original title: True Spirit
-    'tt9100054', //Original title: The Lost Daughter
-    'tt10451852', //Original title: Nine Days
-    'tt5776858', //Original title: Phantom Thread
-    'tt7983894', //Original title: Ammonite
-    'tt6987770', //Original title: Destination Wedding
-    'tt1226837', //Original title: Beautiful Boy
-    'tt4682786', //Original title: Collateral Beauty
-
-    // 'tt14369780', //Original title: Lady Chatterley's Lover
+    'tt3704428', //Original title: Elvis
     'tt6910282', //Original title: Bergman Island
     'tt0816692', //Original title: Interstellar
-    'tt12888462', //My Octopus Teacher            
+    'tt12888462', //My Octopus Teacher         
+    'tt6226232', // Young Sheldon
+    'tt0124315', // Original title: The Cider House Rules
+    'tt9032400', //Original title: Eternals
+    // 'tt2278388', // The Grand Budapest Hotel
+    // 'tt8097030', //Original title: Turning Red
+    // 'tt2398149', //Original title: J'accuse
+    // 'tt14028890', //Original title: Stop-Zemlia
+    // 'tt10627352', // Delete history
+    // 'tt2353868', //Original title: True Spirit
+    // 'tt9100054', //Original title: The Lost Daughter
+    // 'tt10451852', //Original title: Nine Days
+    // 'tt5776858', //Original title: Phantom Thread
+    // 'tt7983894', //Original title: Ammonite
+    // 'tt6987770', //Original title: Destination Wedding
+    // 'tt1226837', //Original title: Beautiful Boy
+    // 'tt4682786', //Original title: Collateral Beauty
+    // 'tt0344510', //A very long engagement
+    // 'tt5827916', //Original title: A Hidden Life
+    // 'tt6390668', //A Vida Invisível    
+    // 'tt3165612', //Original title: Sleeping with Other People
+    // 'tt2278871', //La vie d'Adèle
+    // 'tt0808357', //Порочний зв'язок
+    // 'tt0160916', //Original title: The Story of Us
+    // 'tt2278871', //Original title: La vie d'Adèle
+    // 'tt3165612', //Original title: Sleeping with Other People
+    // 'tt2056771', //Original title: A Bigger Splash
+    // 'tt14369780', //Original title: Lady Chatterley's Lover
+    // 'tt7201846', //Original title: Edmond    
+    // 'tt0426931', //Original title: August Rush
+    // 'tt11703710', //Downton Abbey: A New Era
+    // 'tt13880104', //Original title: L'événement    
+    // 'tt2191765', //Original title: Un moment d'égarement
+    // 'tt0441909', //Original title: Volver
+    // 'tt0424205', //Original title: Joyeux Noël
+    // 'tt0401445', //Original title: A Good Year       
 ]
 
 clearLocalStorage();
