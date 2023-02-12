@@ -70,8 +70,10 @@ function clearLocalStorage() {
 
 
 async function getMovieInfo(id) {
-    const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`);
-    const data = await responce.json();
+    const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
+        .catch(error => concole.log(error));
+    const data = await responce.json()
+        .catch(error => concole.log(error));
     let movie = {
         id: "",
         title: "",
@@ -106,17 +108,17 @@ let searchMoviesList = [];
 let searchInner = document.querySelector('.search__movie-list');
 
 async function searchMovieByTitle(title) {
-    const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${title}`);
-    const data = await responce.json();
+    const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${title}`)
+        .catch(error => concole.log(error));
+    const data = await responce.json()
+        .catch(error => concole.log(error));
     document.querySelector('.search__list-inner').style.display = "block";    
     document.querySelector('body').style.overflow = "hidden";    
-    searchMoviesList = data.Search;
-    console.log(data);
+    searchMoviesList = data.Search;    
     if (searchMoviesList) {                
         searchInner.textContent = "";
         searchMoviesList.forEach(item => {
-            renderShort(item);            
-            // console.log(item);            
+            renderShort(item);                        
         })                
     }    
     document.querySelector('.search__list-inner').focus();     
@@ -162,7 +164,6 @@ document.querySelector('.search__movie-list').addEventListener('click', (event) 
         let newMovieId = event.target.nextSibling.textContent;        
         addMovieToLocalStorage(newMovieId)
     }
-    // console.log(event.target.textContent)
 })
 
 getAllMovies();
@@ -269,10 +270,9 @@ document.querySelector('ul').addEventListener('click', () => {
 
 document.querySelector('ul').addEventListener('click', () => {
     if (event.target.classList.contains('close__btn')) {
-        let currentMovieTitle = event.target.parentElement.firstElementChild.firstElementChild.textContent;
-        console.log(currentMovieTitle);
-        console.log(moviesDataList.find(element => element.title === currentMovieTitle));        
-        console.log(moviesDataList.findIndex(element => element.title === currentMovieTitle));
+        let currentMovieTitle = event.target.parentElement.firstElementChild.firstElementChild.textContent;        
+        // console.log(moviesDataList.find(element => element.title === currentMovieTitle));        
+        // console.log(moviesDataList.findIndex(element => element.title === currentMovieTitle));
         let currentMovieIndex = moviesDataList.findIndex(element => element.title === currentMovieTitle);
         moviesDataList.splice(currentMovieIndex, 1);        
         event.target.parentElement.remove();
@@ -282,8 +282,7 @@ document.querySelector('ul').addEventListener('click', () => {
 
 document.querySelector('.search__btn').addEventListener('click', () => {
     const searchValue = document.querySelector('.search__input').value;
-    if (searchValue.length > 3) {
-        console.log(searchValue);                
+    if (searchValue.length > 3) {        
         searchMovieByTitle(searchValue);                
     }        
 })
@@ -298,8 +297,7 @@ function renderShort(item) {
     movie.classList.add('short__movie');
 
     const shortMovieTitle = document.createElement('h4');
-    shortMovieTitle.classList.add('short__movie-title');
-    console.log(item.Title)
+    shortMovieTitle.classList.add('short__movie-title');    
     shortMovieTitle.textContent = item.Title;
 
     const movieImage = document.createElement('img');
