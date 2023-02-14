@@ -239,6 +239,21 @@ a {
 .search__list-close:hover{
     background: lightblue;
 }
+.footer__inner{
+    display: flex;;
+    justify-content: space-between;
+    padding: 10px;
+}
+.footer__content{
+    font-size: 16px;
+}
+.reset__btn{
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #9f9fff;    
+    padding: 5px 10px;
+}
 @media (max-width: 910px) {
     .short__movie{        
         max-width: calc((100vw - 125px)/4);                     

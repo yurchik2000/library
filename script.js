@@ -68,6 +68,18 @@ function clearLocalStorage() {
     })
 }
 
+function resetLocalStorage() {    
+    if (window.localStorage.getItem('alldata')) {
+        window.localStorage.removeItem('alldata');
+    }
+}
+
+document.querySelector('.reset__btn').addEventListener('click', () => {
+    resetLocalStorage();
+    getAllMovies();
+})
+
+
 
 async function getMovieInfo(id) {
     const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
