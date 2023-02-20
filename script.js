@@ -4,28 +4,30 @@ let moviesDataList = [];
 
 let movieList = document.querySelector('ul');
 
-let moviesList = [
-    'tt9770150', //Original title: Nomadland
-    'tt8291806', // Original title: Dolor y gloria                
-    'tt6060964', //Man of God
-    'tt0109830', //Original title: Forrest Gump    
-    'tt13182756', //The Most Reluctant Convert
-    'tt12680684', //Original title: È stata la mano di Dio    
-    'tt15738080', //Original title: Koza Nostra
-    'tt8075192', //Original title: Manbiki kazoku    
-    'tt11813216', //Original title: The Banshees of Inisherin    
-    'tt6160448', //Original title: White Noise
-    'tt0063518', //Original title: Romeo and Juliet
-    'tt19770238', //Original title: Aftersun
-    'tt1488589', //Original title: Guillermo del Toro's Pinocchio        
-    'tt8332658', //Original title: Shchedryk
-    'tt3704428', //Original title: Elvis
-    'tt6910282', //Original title: Bergman Island
+let moviesListArchive = [];
+
+let moviesList = [    
     'tt0816692', //Original title: Interstellar
     'tt12888462', //My Octopus Teacher         
-    'tt6226232', // Young Sheldon
-    'tt0124315', // Original title: The Cider House Rules
-    'tt9032400', //Original title: Eternals
+    'tt6226232', //Young Sheldon    
+    // 'tt6060964', //Man of God
+    // 'tt0063518', //Original title: Romeo and Juliet
+    // 'tt8332658', //Original title: Shchedryk
+    // 'tt9032400', //Original title: Eternals
+    // 'tt9770150', //Original title: Nomadland
+    // 'tt0109830', //Original title: Forrest Gump    
+    // 'tt13182756', //The Most Reluctant Convert
+    // 'tt12680684', //Original title: È stata la mano di Dio    
+    // 'tt15738080', //Original title: Koza Nostra
+    // 'tt8075192', //Original title: Manbiki kazoku    
+    // 'tt11813216', //Original title: The Banshees of Inisherin    
+    // 'tt6160448', //Original title: White Noise    
+    // 'tt19770238', //Original title: Aftersun
+    // 'tt1488589', //Original title: Guillermo del Toro's Pinocchio            
+    // 'tt3704428', //Original title: Elvis
+    // 'tt6910282', //Original title: Bergman Island
+    // 'tt8291806', // Original title: Dolor y gloria                
+    // 'tt0124315', // Original title: The Cider House Rules    
     // 'tt2278388', // The Grand Budapest Hotel
     // 'tt8097030', //Original title: Turning Red
     // 'tt2398149', //Original title: J'accuse
@@ -71,15 +73,15 @@ function clearLocalStorage() {
 function resetLocalStorage() {    
     if (window.localStorage.getItem('alldata')) {
         window.localStorage.removeItem('alldata');
+        moviesDataList = [];        
     }
 }
 
 document.querySelector('.reset__btn').addEventListener('click', () => {
-    resetLocalStorage();
+    resetLocalStorage();    
+    movieList.innerText = "";
     getAllMovies();
 })
-
-
 
 async function getMovieInfo(id) {
     const responce = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
